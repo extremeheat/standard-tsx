@@ -1,7 +1,7 @@
 {
   "name": "standard-tsx",
   "version": "0.0.1",
-  "description": "standardjs lint with typescript file support (with no new typescript rules)",
+  "description": "standardjs lint with TypeScript and JSX file support (with no new typescript rules)",
   "main": "src/index.js",
   "bin": {
     "standard-tsx": "./src/cli.js"
@@ -16,7 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/extremeheat/standard-tsx.git"
   },
-  "keywords": [],
+  "keywords": ["standard", "lint", "eslint", "react", "ts", "tsx", "typescript"],
   "author": "extremeheat",
   "license": "MIT",
   "bugs": {

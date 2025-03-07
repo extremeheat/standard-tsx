@@ -2,7 +2,7 @@
 
 describe('basic', () => {
   it('test', () => {
-    require('standard-ts')
+    require('standard-tsx')
     console.log('it works~')
   })
 })

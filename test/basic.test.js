@@ -1,8 +1,8 @@
 /* eslint-env mocha */
-const lib = require('prismarine-template')
 
 describe('basic', () => {
   it('test', () => {
+    require('standard-ts')
     console.log('it works~')
   })
 })

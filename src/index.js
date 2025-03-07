@@ -1,3 +1,3 @@
 module.exports = {
-  hello: 'world'
+  config: require('./eslint.config.js')
 }

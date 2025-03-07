@@ -1,28 +1,43 @@
 {
-  "name": "prismarine-template",
-  "version": "1.0.0",
-  "description": "A template repository to make it easy to create new prismarine repo",
+  "name": "standard-ts",
+  "version": "0.0.1",
+  "description": "standardjs lint with typescript file support (with no new typescript rules)",
   "main": "src/index.js",
+  "bin": {
+    "standard-ts": "./src/cli.js"
+  },
   "scripts": {
     "test": "mocha --reporter spec --exit",
     "pretest": "npm run lint",
-    "lint": "standard",
-    "fix": "standard --fix"
+    "lint": "standard-ts",
+    "fix": "standard-ts --fix"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/extremeheat/prismarine-template.git"
+    "url": "git+https://github.com/extremeheat/standard-ts.git"
   },
   "keywords": [],
   "author": "extremeheat",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/extremeheat/prismarine-template/issues"
+    "url": "https://github.com/extremeheat/standard-ts/issues"
   },
-  "homepage": "https://github.com/extremeheat/prismarine-template#readme",
+  "homepage": "https://github.com/extremeheat/standard-ts#readme",
   "devDependencies": {
-    "prismarine-template": "file:.",
-    "standard": "^17.0.0",
-    "mocha": "^10.0.0"
+    "mocha": "^10.0.0",
+    "standard-ts": "file:."
+  },
+  "dependencies": {
+    "@eslint/js": "^9.21.0",
+    "@typescript-eslint/eslint-plugin": "^8.26.0",
+    "@typescript-eslint/parser": "^8.26.0",
+    "eslint": "^9.21.0",
+    "eslint-config-standard": "^17.1.0",
+    "globals": "^16.0.0",
+    "typescript-eslint": "^8.26.0"
+  },
+  "__comment": "We need overrides as `eslint-config-standard` depends on eslint@8 and we only need config",
+  "overrides": {
+    "eslint": "^9.21.0"
   }
 }

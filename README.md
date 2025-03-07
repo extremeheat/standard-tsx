@@ -10,7 +10,7 @@ add any new rules. Instead, it applies standard's eslint config (https://github.
 
 ## Install
 ```
-npm install standard-tsx
+npm install -D standard-tsx
 ```
 
 ## Usage

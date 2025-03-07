@@ -14,7 +14,7 @@ const { includeIgnoreFile } = require('@eslint/compat')
 const path = require('node:path')
 const glob = require('glob')
 
-const gitignoreFiles = glob.sync('**/.gitignore', { cwd: process.cwd() })
+const gitignoreFiles = glob.sync('**/.gitignore', { cwd: process.cwd(), ignore: 'node_modules/**' })
 
 // Sort by directory depth (root to leaves) to match Git's override behavior
 const sortedGitignoreFiles = gitignoreFiles.sort((a, b) => {

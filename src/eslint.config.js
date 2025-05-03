@@ -9,12 +9,12 @@ const promisePlugin = require('eslint-plugin-promise')
 const eslintEnvRestorePlugin = require('eslint-plugin-eslint-env-restore')
 const reactPlugin = require('eslint-plugin-react')
 const reactHooksPlugin = require('eslint-plugin-react-hooks')
-
-const { includeIgnoreFile } = require('@eslint/compat')
+const fs = require('node:fs')
 const path = require('node:path')
 const glob = require('glob')
 
-const gitignoreFiles = glob.sync('**/.gitignore', { cwd: process.cwd(), ignore: 'node_modules/**' })
+// Find all .gitignore files in the project
+const gitignoreFiles = glob.sync('**/.gitignore', { cwd: process.cwd() })
 
 // Sort by directory depth (root to leaves) to match Git's override behavior
 const sortedGitignoreFiles = gitignoreFiles.sort((a, b) => {
@@ -23,14 +23,23 @@ const sortedGitignoreFiles = gitignoreFiles.sort((a, b) => {
   return depthA - depthB
 })
 
-// Convert each .gitignore file into an ESLint ignore config
-const ignoreConfigs = sortedGitignoreFiles.map(file => {
-  const fullPath = path.resolve(process.cwd(), file)
-  return includeIgnoreFile(fullPath)
-})
+// Merge ignore patterns from all .gitignore files
+const ignorePatterns = []
+for (const file of sortedGitignoreFiles) {
+  const dir = path.dirname(file)
+  const content = fs.readFileSync(file, 'utf8')
+  const lines = content.split('\n').map(line => line.trim()).filter(line => line && !line.startsWith('#'))
+  for (const line of lines) {
+    if (line.startsWith('!')) {
+      ignorePatterns.push('!' + path.join(dir, line.slice(1)))
+    } else {
+      ignorePatterns.push(path.join(dir, line))
+    }
+  }
+}
 
 module.exports = [
-  ...ignoreConfigs,
+  { ignores: ignorePatterns },
   {
     languageOptions: {
       globals: {

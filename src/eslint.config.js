@@ -58,6 +58,7 @@ function findNearestTsconfigDir (startDir = process.cwd()) {
   return null
 }
 const tsconfigRootDir = findNearestTsconfigDir()
+console.log('TSRoot', tsconfigRootDir)
 
 module.exports = [
   { ignores: ignorePatterns },

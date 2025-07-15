@@ -1,4 +1,7 @@
 // ./eslint.config.js
+const path = require('node:path')
+const fs = require('node:fs')
+
 const globals = require('globals')
 const pluginJs = require('@eslint/js').configs
 const tseslint = require('typescript-eslint')
@@ -9,8 +12,6 @@ const promisePlugin = require('eslint-plugin-promise')
 const eslintEnvRestorePlugin = require('eslint-plugin-eslint-env-restore')
 const reactPlugin = require('eslint-plugin-react')
 const reactHooksPlugin = require('eslint-plugin-react-hooks')
-const fs = require('node:fs')
-const path = require('node:path')
 const glob = require('glob')
 
 // Find all .gitignore files in the project
@@ -37,6 +38,26 @@ for (const file of sortedGitignoreFiles) {
     }
   }
 }
+
+function findNearestTsconfigDir (startDir = process.cwd()) {
+  let currentDir = path.resolve(startDir)
+
+  while (true) {
+    const tsconfigPath = path.join(currentDir, 'tsconfig.json')
+    if (fs.existsSync(tsconfigPath)) {
+      return currentDir
+    }
+
+    const parentDir = path.dirname(currentDir)
+    if (parentDir === currentDir) {
+      // Reached filesystem root
+      break
+    }
+    currentDir = parentDir
+  }
+  return null
+}
+const tsconfigRootDir = findNearestTsconfigDir()
 
 module.exports = [
   { ignores: ignorePatterns },
@@ -111,7 +132,8 @@ module.exports = [
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        project: './tsconfig.json'
+        project: './tsconfig.json',
+        tsconfigRootDir
       },
       globals: {
         ...globals.node
@@ -139,6 +161,7 @@ module.exports = [
       parser: tseslint.parser,
       parserOptions: {
         project: './tsconfig.json',
+        tsconfigRootDir,
         ecmaFeatures: {
           jsx: true
         }

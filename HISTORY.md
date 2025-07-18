@@ -1,3 +1,6 @@
+## 0.0.5
+* [Update .gitignore handling (#12)](https://github.com/extremeheat/standard-tsx/commit/29b2286623bf5145ec6c8b3d112136f9d0b7ccac) (thanks @extremeheat)
+
 ## 0.0.4
 * [Fix tsconfig lookup (#9)](https://github.com/extremeheat/standard-tsx/commit/4f28fc3798d52a35d86126c29a7e5d3d341b1578) (thanks @extremeheat)
 * [Fix .gitignore handling in eslint.config.js](https://github.com/extremeheat/standard-tsx/commit/a8d88a03742b02b7138d9b653026eb33a74ce829) (thanks @extremeheat)

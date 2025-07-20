@@ -1,3 +1,7 @@
+const path = require('node:path')
+const fs = require('node:fs')
+const glob = require('glob')
+
 function collectIgnores () {
   // Find all .gitignore files in the project (upto 2 levels up for monorepo support)
   const gitignoreFiles = glob.sync('**/.gitignore', { cwd: process.cwd() })

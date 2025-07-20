@@ -1,6 +1,3 @@
-const path = require('node:path')
-const fs = require('node:fs')
-
 const globals = require('globals')
 const pluginJs = require('@eslint/js').configs
 const tseslint = require('typescript-eslint')
@@ -11,7 +8,6 @@ const promisePlugin = require('eslint-plugin-promise')
 const eslintEnvRestorePlugin = require('eslint-plugin-eslint-env-restore')
 const reactPlugin = require('eslint-plugin-react')
 const reactHooksPlugin = require('eslint-plugin-react-hooks')
-const glob = require('glob')
 
 const { collectIgnores, findNearestTsconfigDir } = require('./utils.js')
 const ignorePatterns = collectIgnores()

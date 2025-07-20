@@ -13,14 +13,15 @@ const reactPlugin = require('eslint-plugin-react')
 const reactHooksPlugin = require('eslint-plugin-react-hooks')
 const glob = require('glob')
 
-const { collectIgnores, findNearestTsconfigDir } = require('./utils.j')
+const { collectIgnores, findNearestTsconfigDir } = require('./utils.js')
 const ignorePatterns = collectIgnores()
 const tsconfigRootDir = findNearestTsconfigDir()
 
 const tsRules = {
   '@typescript-eslint/indent': ['error', 2],
   '@typescript-eslint/semi': ['error', 'never'],
-  '@typescript-eslint/quotes': ['error', 'single']
+  '@typescript-eslint/quotes': ['error', 'single'],
+  '@typescript-eslint/type-annotation-spacing': ['error']
 }
 
 module.exports = [

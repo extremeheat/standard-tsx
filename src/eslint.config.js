@@ -14,10 +14,11 @@ const ignorePatterns = collectIgnores()
 const tsconfigRootDir = findNearestTsconfigDir()
 
 const tsRules = {
-  '@typescript-eslint/indent': ['error', 2],
-  '@typescript-eslint/semi': ['error', 'never'],
-  '@typescript-eslint/quotes': ['error', 'single'],
-  '@typescript-eslint/type-annotation-spacing': ['error']
+  // TODO: Need stylistic
+  // '@typescript-eslint/indent': ['error', 2],
+  // '@typescript-eslint/semi': ['error', 'never'],
+  // '@typescript-eslint/quotes': ['error', 'single'],
+  // '@typescript-eslint/type-annotation-spacing': ['error']
 }
 
 module.exports = [
@@ -112,7 +113,7 @@ module.exports = [
       ...tseslint.configs.recommended.rules,
       ...standard.rules,
       'no-unused-vars': ['error', { vars: 'local', args: 'none', caughtErrors: 'none', ignoreRestSiblings: true }],
-      '@typescript-eslint/no-unused-vars': ['error', { vars: 'local', args: 'none', caughtErrors: 'none', ignoreRestSiblings: true }],
+      // '@typescript-eslint/no-unused-vars': ['error', { vars: 'local', args: 'none', caughtErrors: 'none', ignoreRestSiblings: true }],
       ...tsRules
     }
   },
@@ -148,7 +149,7 @@ module.exports = [
       ...reactPlugin.configs.recommended.rules,
       ...reactHooksPlugin.configs.recommended.rules,
       'no-unused-vars': ['error', { vars: 'local', args: 'none', caughtErrors: 'none', ignoreRestSiblings: true }],
-      '@typescript-eslint/no-unused-vars': ['error', { vars: 'local', args: 'none', caughtErrors: 'none', ignoreRestSiblings: true }],
+      // '@typescript-eslint/no-unused-vars': ['error', { vars: 'local', args: 'none', caughtErrors: 'none', ignoreRestSiblings: true }],
       'react/jsx-uses-react': 'off',
       'react/jsx-uses-vars': 'error',
       'react/react-in-jsx-scope': 'off',

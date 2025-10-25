@@ -1,3 +1,6 @@
+## 0.0.6
+* [Disable duplicate ts rules (#14)](https://github.com/extremeheat/standard-tsx/commit/625d956de1b1f98e57af040d7284d1fec0b93274) (thanks @extremeheat)
+
 ## 0.0.5
 * [Update .gitignore handling (#12)](https://github.com/extremeheat/standard-tsx/commit/29b2286623bf5145ec6c8b3d112136f9d0b7ccac) (thanks @extremeheat)
 

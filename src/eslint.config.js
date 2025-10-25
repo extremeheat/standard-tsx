@@ -1,7 +1,3 @@
-// ./eslint.config.js
-const path = require('node:path')
-const fs = require('node:fs')
-
 const globals = require('globals')
 const pluginJs = require('@eslint/js').configs
 const tseslint = require('typescript-eslint')
@@ -12,62 +8,18 @@ const promisePlugin = require('eslint-plugin-promise')
 const eslintEnvRestorePlugin = require('eslint-plugin-eslint-env-restore')
 const reactPlugin = require('eslint-plugin-react')
 const reactHooksPlugin = require('eslint-plugin-react-hooks')
-const glob = require('glob')
 
-// Find all .gitignore files in the project (upto 2 levels up for monorepo support)
-const gitignoreFiles = glob.sync('**/.gitignore', { cwd: process.cwd() })
-if (gitignoreFiles.length === 0) {
-  gitignoreFiles.push(...glob.sync('**/.gitignore', { cwd: path.join(process.cwd(), '..') }).map(file => path.join('..', file)))
-  if (gitignoreFiles.length === 0) {
-    gitignoreFiles.push(...glob.sync('**/.gitignore', { cwd: path.join(process.cwd(), '../..') }).map(file => path.join('..', '..', file)))
-  }
-}
-
-// Sort by directory depth (root to leaves) to match Git's override behavior
-const sortedGitignoreFiles = gitignoreFiles.sort((a, b) => {
-  const depthA = a.split(path.sep).length
-  const depthB = b.split(path.sep).length
-  return depthA - depthB
-})
-
-// Merge ignore patterns from all .gitignore files
-const ignorePatterns = []
-for (const file of sortedGitignoreFiles) {
-  const dir = path.dirname(file)
-  const content = fs.readFileSync(file, 'utf8')
-  const lines = content.split('\n').map(line => line.trim()).filter(line => line && !line.startsWith('#'))
-  for (const line of lines) {
-    let rule = path.join(dir, line).replaceAll('\\', '/')
-    if (rule.startsWith('..//')) continue // a rule intended for a parent directory
-    // rules that don't start with slash apply to all directories
-    rule = rule.replaceAll('../', '')
-    // mimic .gitignore behavior as ESlint is a bit different and doesn't recursively apply rules
-    if (!rule.startsWith('/') || !rule.startsWith('./') || !rule.startsWith('*')) rule = '**/' + rule
-    // Restore ordering of ! to front after above transformation
-    if (line.startsWith('!')) rule = '!' + rule.replaceAll('!', '')
-    ignorePatterns.push(rule)
-  }
-}
-
-function findNearestTsconfigDir (startDir = process.cwd()) {
-  let currentDir = path.resolve(startDir)
-
-  while (true) {
-    const tsconfigPath = path.join(currentDir, 'tsconfig.json')
-    if (fs.existsSync(tsconfigPath)) {
-      return currentDir
-    }
-
-    const parentDir = path.dirname(currentDir)
-    if (parentDir === currentDir) {
-      // Reached filesystem root
-      break
-    }
-    currentDir = parentDir
-  }
-  return null
-}
+const { collectIgnores, findNearestTsconfigDir } = require('./utils.js')
+const ignorePatterns = collectIgnores()
 const tsconfigRootDir = findNearestTsconfigDir()
+
+const tsRules = {
+  // TODO: Need stylistic
+  // '@typescript-eslint/indent': ['error', 2],
+  // '@typescript-eslint/semi': ['error', 'never'],
+  // '@typescript-eslint/quotes': ['error', 'single'],
+  // '@typescript-eslint/type-annotation-spacing': ['error']
+}
 
 module.exports = [
   { ignores: ignorePatterns },
@@ -161,7 +113,8 @@ module.exports = [
       ...tseslint.configs.recommended.rules,
       ...standard.rules,
       'no-unused-vars': ['error', { vars: 'local', args: 'none', caughtErrors: 'none', ignoreRestSiblings: true }],
-      '@typescript-eslint/no-unused-vars': ['error', { vars: 'local', args: 'none', caughtErrors: 'none', ignoreRestSiblings: true }]
+      // '@typescript-eslint/no-unused-vars': ['error', { vars: 'local', args: 'none', caughtErrors: 'none', ignoreRestSiblings: true }],
+      ...tsRules
     }
   },
   // TSX (Browser environment)
@@ -196,10 +149,11 @@ module.exports = [
       ...reactPlugin.configs.recommended.rules,
       ...reactHooksPlugin.configs.recommended.rules,
       'no-unused-vars': ['error', { vars: 'local', args: 'none', caughtErrors: 'none', ignoreRestSiblings: true }],
-      '@typescript-eslint/no-unused-vars': ['error', { vars: 'local', args: 'none', caughtErrors: 'none', ignoreRestSiblings: true }],
+      // '@typescript-eslint/no-unused-vars': ['error', { vars: 'local', args: 'none', caughtErrors: 'none', ignoreRestSiblings: true }],
       'react/jsx-uses-react': 'off',
       'react/jsx-uses-vars': 'error',
-      'react/react-in-jsx-scope': 'off'
+      'react/react-in-jsx-scope': 'off',
+      ...tsRules
     }
   }
 ]

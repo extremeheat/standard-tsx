@@ -35,7 +35,10 @@ async function main () {
     overrideConfigFile: path.join(__dirname, './eslint.config.js'),
     fix: fixFlag,
     overrideConfig: {
-      rules: customRules
+      rules: customRules,
+      linterOptions: {
+			  reportUnusedDisableDirectives: "error"
+		  }
     }
   })
 

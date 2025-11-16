@@ -1,6 +1,6 @@
 {
   "name": "standard-tsx",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "standardjs lint with TypeScript and JSX file support (with no new typescript rules)",
   "main": "src/index.js",
   "bin": {

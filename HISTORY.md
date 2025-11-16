@@ -1,3 +1,7 @@
+## 0.0.7
+* [disable reportUnusedDisableDirectives](https://github.com/extremeheat/standard-tsx/commit/98e40d212ea43f3a2cc912e31d076539a4e430fb) (thanks @extremeheat)
+* [Add linter options for ESLint configuration to skip unused flag warnings](https://github.com/extremeheat/standard-tsx/commit/1df2356ffb05f072be812d9fb61e3ff2f9639ec7) (thanks @extremeheat)
+
 ## 0.0.6
 * [Disable duplicate ts rules (#14)](https://github.com/extremeheat/standard-tsx/commit/625d956de1b1f98e57af040d7284d1fec0b93274) (thanks @extremeheat)
 

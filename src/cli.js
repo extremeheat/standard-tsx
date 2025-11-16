@@ -37,8 +37,8 @@ async function main () {
     overrideConfig: {
       rules: customRules,
       linterOptions: {
-			  reportUnusedDisableDirectives: "error"
-		  }
+        reportUnusedDisableDirectives: 'off'
+      }
     }
   })
 

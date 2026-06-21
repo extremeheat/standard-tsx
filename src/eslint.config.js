@@ -1,4 +1,5 @@
 const globals = require('globals')
+const { fixupPluginRules } = require('@eslint/compat')
 const pluginJs = require('@eslint/js').configs
 const tseslint = require('typescript-eslint')
 const standard = require('eslint-config-standard')
@@ -12,6 +13,7 @@ const reactHooksPlugin = require('eslint-plugin-react-hooks')
 const { collectIgnores, findNearestTsconfigDir } = require('./utils.js')
 const ignorePatterns = collectIgnores()
 const tsconfigRootDir = findNearestTsconfigDir()
+const compatNPlugin = fixupPluginRules(nPlugin)
 
 const tsRules = {
   // TODO: Need stylistic
@@ -45,7 +47,7 @@ module.exports = [
     plugins: {
       'eslint-env-restore': eslintEnvRestorePlugin,
       import: importPlugin,
-      n: nPlugin,
+      n: compatNPlugin,
       promise: promisePlugin
     },
     processor: 'eslint-env-restore/js',
@@ -71,7 +73,7 @@ module.exports = [
     plugins: {
       'eslint-env-restore': eslintEnvRestorePlugin,
       import: importPlugin,
-      n: nPlugin,
+      n: compatNPlugin,
       promise: promisePlugin,
       react: reactPlugin,
       'react-hooks': reactHooksPlugin
@@ -105,7 +107,7 @@ module.exports = [
       'eslint-env-restore': eslintEnvRestorePlugin,
       '@typescript-eslint': tseslint.plugin,
       import: importPlugin,
-      n: nPlugin,
+      n: compatNPlugin,
       promise: promisePlugin
     },
     processor: 'eslint-env-restore/js',
@@ -137,7 +139,7 @@ module.exports = [
       'eslint-env-restore': eslintEnvRestorePlugin,
       '@typescript-eslint': tseslint.plugin,
       import: importPlugin,
-      n: nPlugin,
+      n: compatNPlugin,
       promise: promisePlugin,
       react: reactPlugin,
       'react-hooks': reactHooksPlugin

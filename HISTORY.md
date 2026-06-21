@@ -1,3 +1,6 @@
+## 0.0.8
+* [chore: bump eslint dependencies to latest versions (#18)](https://github.com/extremeheat/standard-tsx/commit/59a18acfb2dab56cc26e3e32780691e99404aaee) (thanks @Copilot)
+
 ## 0.0.7
 * [disable reportUnusedDisableDirectives](https://github.com/extremeheat/standard-tsx/commit/98e40d212ea43f3a2cc912e31d076539a4e430fb) (thanks @extremeheat)
 * [Add linter options for ESLint configuration to skip unused flag warnings](https://github.com/extremeheat/standard-tsx/commit/1df2356ffb05f072be812d9fb61e3ff2f9639ec7) (thanks @extremeheat)
